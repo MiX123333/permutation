@@ -55,3 +55,32 @@ def encryption():  # Функция шифрования
         print(end_result)
         choose()  # возвращаемся в главное меню
 
+    if encryption_mode == 2:  # (группа символов)
+        print('Введите текст:')
+        text = input()
+        print('Введите длину группы символов:')
+        len_group = int(input())
+        print('Введите ключ')
+        key = input()
+        list_text = [(text[i:i + len_group]) for i in range(0, len(text), len_group)]  # разделяем текст по группам
+        if len(list_text) % len_group != 0:  # проверка, что длина разделенного текста подходит
+            while len(list_text) % len_group:
+                list_text.append('\0')
+        result = [0] * len(list_text)  # создаем список из нулей, куда потом будет записан результат, вместо 0
+        total = 0
+        for numbers in key:  # само шифрование
+            result[int(numbers)] = list_text[total]
+            total += 1
+        print(''.join(result))
+        choose()  # возвращаемся в главное меню
+    if encryption_mode == 3: # (слово)
+        print('Введите текст:')
+        text = input()
+        text = text.split()
+        print('Введите ключ')
+        key = input()
+        len_key = len(key)
+        if len(text) != len_key: #способ шифрования последнего блока (83-85 строка)
+            while len(text) != len_key:
+                text.append('\0')
+
