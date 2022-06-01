@@ -84,13 +84,14 @@ def encryption():  # Функция шифрования
             while len(text) != len_key:
                 text.append('\0')
 
-         result = ['0'] * len(text) # список из 0, куда потом будет записываться результат вместо 0
+        result = [0] * len(text) # список из 0, куда потом будет записываться результат вместо 0
         total = 0
         for numbers in key: # само шифрование
             result[int(numbers)] = text[total]
             total += 1
-        print(' '.join(result).replace('0',''))
+        print(*result)
         choose()
+
 
 def decryption(): # функция расшифровки (все то же самое как и в шифрование, только мы переворачиваем ключ, алгоритм точь-в-точь такой же, как и в шифрование)
     print('Выберите режим расшифровки:')
