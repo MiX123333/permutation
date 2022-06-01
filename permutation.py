@@ -92,3 +92,82 @@ def encryption():  # Функция шифрования
         print(' '.join(result).replace('0',''))
         choose()
 
+def decryption(): # функция расшифровки (все то же самое как и в шифрование, только мы переворачиваем ключ, алгоритм точь-в-точь такой же, как и в шифрование)
+    print('Выберите режим расшифровки:')
+    print('1 - один символ')
+    print('2 - группа символов ')
+    print('3 - слово')
+    decryption_mode = int(input())
+    if decryption_mode == 1: # один символ
+        print('Введите текст:')
+        text = input()
+        print('Введите ключ')
+        key = input()
+        key = key[::-1] # перевернули ключ
+        len_key = len(key)
+        for numb in key:
+            if int(numb) >= len_key:
+                print('Цифры в ключе не должны быть больше чем длина ключа -1')
+                encryption()
+        list_text = [(text[i:i + len_key]) for i in range(0, len(text), len_key)]
+        result = []
+        for elements in list_text:
+            elements = list(elements)
+            arr = [0] * len_key
+            total = 0
+            for numbers in key:
+                arr[int(numbers)] = elements[total]
+                total += 1
+            result.append(arr)
+            res1 = []
+        for res in result:
+            res1.append(''.join(res))
+
+        res1 = ''.join(res1)
+        end_result = res1.replace('\0', '')
+        print('Результат шифрования:')
+        print(end_result)
+        # choose()
+
+    if decryption_mode == 2:
+        print('Введите текст:')
+        text = input()
+        print('Введите длину группы символов:')
+        len_group = int(input())
+        print('Введите ключ')
+        key = input()
+        key = key[::-1] # перевернули ключ
+        len_key = len(key)
+        list_text = [(text[i:i + len_group]) for i in range(0, len(text), len_group)]
+        print(list_text)
+        result = [0] * len(list_text)
+        total = 0
+        for numbers in key:
+            result[int(numbers)] = list_text[total]
+            total += 1
+        print(''.join(result))
+        # choose()
+    if decryption_mode == 3:
+        print('Введите текст:')
+        text = input()
+        text = text.split()
+        print('Введите ключ')
+        key = input()
+        key = key[::-1] # перевернули ключ
+        len_key = len(key)
+        if len(text) != len_key:
+            while len(text) != len_key:
+                text.append('\0')
+
+        result = [0] * len(text)
+        total = 0
+        for numbers in key:
+            result[int(numbers)] = text[total]
+            total += 1
+        print(*result)
+        choose()
+
+
+
+choose()  # вызываем главное меню
+
