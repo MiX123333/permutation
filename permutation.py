@@ -37,5 +37,21 @@ def encryption():  # Функция шифрования
             while len(list_text[-1]) != len_key:
                 list_text[-1] += '\0'
         result = []
+        for elements in list_text:  # заранее создаем список из нулей, потом 0 будут заменяться на конечный результат
+            elements = list(elements)
+            arr = [0] * len_key
+            total = 0
+            for numbers in key:  # сам цикл шифрования, по итогу у нас получается двумерный список
+                arr[int(numbers)] = elements[total]
+                total += 1
+            result.append(arr)
+            res1 = []
+        for res in result:  # превращаем двумерный список в одномерный
+            res1.append(''.join(res))
 
+        res1 = ''.join(res1)  # превращаем одномерный список в строку
+        end_result = res1.replace('\0', '')  # убираем все \0
+        print('Результат шифрования:')
+        print(end_result)
+        choose()  # возвращаемся в главное меню
 
